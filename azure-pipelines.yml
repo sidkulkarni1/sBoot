@@ -27,3 +27,17 @@ steps:
 - task: SonarQubePublish@5
   inputs:
     pollingTimeoutSec: '300'
+- task: ArtifactoryGenericUpload@2
+  inputs:
+    artifactoryService: 'jfrog'
+    specSource: 'taskConfiguration'
+    fileSpec: |
+      {
+        "files": [
+          {
+            "pattern": "*.jar",
+            "target": "sid"
+          }
+        ]
+      }
+    failNoOp: true
